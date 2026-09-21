@@ -1,49 +1,52 @@
-# Clase 0 — Preparar tu entorno
+# Clase 0 — Preparación del entorno
 
 **Ingeniería y Análisis de Datos en Google Cloud** · UTN Facultad Regional Rosario
 Curso de extensión · Octubre – Noviembre 2026
 
-Antes de la primera clase necesitás dejar tu computadora lista. Son unos **40 minutos**, y conviene hacerlo esta semana y no el lunes a la noche: si algo falla, quiero enterarme antes de la clase y no durante.
+Antes de la primera clase es necesario dejar el entorno de trabajo funcionando. Lleva alrededor de 40 minutos.
 
-No hace falta saber nada de Google Cloud todavía. Solo seguir los pasos.
+Conviene completarlo con anticipación. Los problemas de instalación se resuelven por el canal de consultas; resolverlos durante la clase consume tiempo de cursada.
 
-> **No se necesita tarjeta de crédito y no genera ningún costo.** Todo el curso corre dentro del entorno gratuito de Google Cloud.
+No se requieren conocimientos previos de Google Cloud.
 
----
-
-## Qué doy por sabido
-
-No hace falta experiencia en datos ni en la nube. Sí espero que llegues con:
-
-- **SQL básico** — consultas, filtros, agrupaciones. Si hace mucho que no lo usás, un repaso de media hora alcanza.
-- **Terminal** — abrir una, moverte entre carpetas, correr un comando.
-- **Git** — clonar un repositorio.
-
-Si alguna de las tres te queda lejos, avisame por el canal antes de empezar y vemos.
+> **No se necesita tarjeta de crédito.** El curso se desarrolla íntegramente dentro del entorno gratuito de Google Cloud.
 
 ---
 
-## Paso 1 — Cuenta y proyecto en Google Cloud
+## Conocimientos previos
 
-1. Entrá a [console.cloud.google.com](https://console.cloud.google.com) con una cuenta de Google. Podés usar la personal.
-2. Aceptá los términos.
-3. Creá un proyecto nuevo. Ponele un nombre que reconozcas, por ejemplo `curso-datos-utn`.
-4. Entrá a **BigQuery** desde el buscador de arriba.
-5. Cuando te ofrezca activar el **sandbox**, aceptá. No pide tarjeta.
+El curso no exige experiencia en datos ni en la nube, pero sí asume:
 
-**Cómo sabés que salió bien:** ves la consola de BigQuery con un cartel que indica que estás en modo sandbox.
-
-> **Dos cosas del sandbox.** Las tablas que crees se borran solas a los 60 días — no es un problema, porque todo lo que vamos a construir se reconstruye con un comando. Y algunas funciones están deshabilitadas; las que necesitamos, no.
-
-Anotate el **ID del proyecto**. No es el nombre que le pusiste: lo ves en la consola, al lado del selector de proyecto. Lo vas a necesitar en el paso 5.
+- **SQL básico** — consultas, filtros, agrupaciones
+- **Terminal** — navegar entre directorios y ejecutar comandos
+- **Git** — clonar un repositorio
 
 ---
 
-## Paso 2 — La herramienta de línea de comandos
+## Paso 1 — Proyecto en Google Cloud
 
-Instalá `gcloud` siguiendo la guía oficial para tu sistema: [cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
+1. Ingresar a [console.cloud.google.com](https://console.cloud.google.com) con una cuenta de Google.
+2. Aceptar los términos del servicio.
+3. Crear un proyecto nuevo, por ejemplo `curso-datos-utn`.
+4. Abrir **BigQuery** desde el buscador de la consola.
+5. Activar el **sandbox** cuando la consola lo ofrezca.
 
-Después, en una terminal:
+**Verificación:** la consola de BigQuery indica que el proyecto opera en modo sandbox.
+
+Dos características del sandbox:
+
+- Las tablas expiran a los 60 días. No afecta al curso: todos los modelos se reconstruyen con un comando.
+- Algunas funciones están deshabilitadas. Ninguna de las que usa el curso.
+
+Registrar el **ID del proyecto**, que no coincide con el nombre asignado. Figura en la consola, junto al selector de proyecto. Se utiliza en el paso 5.
+
+---
+
+## Paso 2 — Interfaz de línea de comandos
+
+Instalar `gcloud` según la guía oficial correspondiente al sistema operativo: [cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
+
+Luego, en una terminal:
 
 ```bash
 gcloud auth login
@@ -51,25 +54,23 @@ gcloud auth application-default login
 gcloud config set project TU-ID-DE-PROYECTO
 ```
 
-El segundo comando es el que usa dbt para conectarse. No lo saltees.
+El segundo comando genera las credenciales que utiliza dbt para conectarse. Es obligatorio.
 
-**Cómo sabés que salió bien:**
+**Verificación:**
 
 ```bash
 gcloud config list
 ```
 
-Tiene que mostrar tu cuenta y tu proyecto.
+La salida debe mostrar la cuenta y el proyecto configurados.
 
 ---
 
 ## Paso 3 — Python y dbt
 
-Vamos a usar **uv** para manejar el entorno de Python. Es más rápido y da menos problemas que las alternativas.
+El curso utiliza **uv** para administrar el entorno de Python. Instalarlo desde [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/).
 
-Instalalo desde [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/).
-
-**Cómo sabés que salió bien:**
+**Verificación:**
 
 ```bash
 uv --version
@@ -77,7 +78,7 @@ uv --version
 
 ---
 
-## Paso 4 — Clonar este repositorio
+## Paso 4 — Clonar el repositorio
 
 ```bash
 git clone https://github.com/juanmantegazza/ingenieria-datos-gcp.git
@@ -85,64 +86,60 @@ cd ingenieria-datos-gcp
 uv sync
 ```
 
-`uv sync` instala `dbt-core` y `dbt-bigquery` en un entorno propio del proyecto. No toca tu Python del sistema.
+`uv sync` instala `dbt-core` y `dbt-bigquery` en un entorno aislado del proyecto, sin modificar la instalación de Python del sistema.
 
 ---
 
-## Paso 5 — La prueba de que todo funciona
+## Paso 5 — Prueba de entorno
 
-Este es el paso que importa. Si este anda, estás listo.
+**1. Configurar el proyecto.** Abrir `profiles.yml` y reemplazar `TU-ID-DE-PROYECTO` por el ID registrado en el paso 1.
 
-**1. Configurá tu proyecto.** Abrí `profiles.yml` y reemplazá `TU-ID-DE-PROYECTO` por el ID que anotaste en el paso 1.
-
-**2. Verificá la conexión:**
+**2. Verificar la conexión:**
 
 ```bash
 uv run dbt debug --profiles-dir .
 ```
 
-Todas las líneas tienen que dar **OK**. Si alguna da error, copiala tal cual y mandala al canal.
+Todas las comprobaciones deben devolver **OK**.
 
-**3. Creá la tabla de prueba:**
+**3. Ejecutar el modelo de prueba:**
 
 ```bash
 uv run dbt run --profiles-dir .
 ```
 
-Esto crea un dataset llamado `curso_dbt` en tu proyecto, con una tabla adentro. No consulta ningún dato: solo comprueba que dbt puede autenticarse y escribir en tu BigQuery.
+Esto crea el dataset `curso_dbt` en el proyecto, con una tabla. El modelo no consulta datos externos: solo comprueba que dbt puede autenticarse y escribir en BigQuery.
 
-**4. Miralo en la consola.** Entrá a BigQuery, buscá el dataset `curso_dbt` y abrí la tabla `smoke_test`. Tiene que decirte que tu entorno funciona.
+**4. Confirmar en la consola.** Abrir BigQuery, localizar el dataset `curso_dbt` y la tabla `smoke_test`.
 
-**Cómo sabés que terminaste:** `dbt debug` todo en OK, y la tabla `smoke_test` visible en tu proyecto.
-
----
-
-## Si algo falla
-
-Escribí en el canal del curso pegando **el comando que corriste y el error completo**. No lo resumas: el texto exacto es lo que permite resolverlo rápido.
-
-Voy a estar respondiendo hasta el día de la primera clase. Resolverlo el martes en vivo nos come tiempo de clase, así que no lo dejes para último momento.
+**Verificación final:** `dbt debug` sin errores y la tabla `smoke_test` visible en el proyecto.
 
 ---
 
-## Encuesta
+## Problemas durante la instalación
 
-Antes de empezar, completá esta encuesta de dos minutos: **[LINK]**
-
-Me sirve para calibrar el ritmo de las clases. No hay respuestas buenas ni malas y no afecta tu certificado.
+Reportarlos por el canal de consultas, indicando **el comando ejecutado y el mensaje de error completo**, sin resumir. El texto exacto es lo que permite identificar la causa.
 
 ---
 
-## Qué NO hace falta hacer
+## Encuesta previa
 
-- No instales nada más de lo que dice acá.
-- No actives la facturación en Google Cloud, aunque la consola te lo insista.
-- No hace falta que leas nada previo. La clase 1 arranca desde cero.
+Completar antes del inicio del curso: **[LINK]**
+
+Toma dos minutos y se utiliza para calibrar el ritmo de las clases. No incide en la certificación.
 
 ---
 
-## Nos vemos
+## Advertencias
+
+- No instalar componentes adicionales a los indicados.
+- No habilitar la facturación en Google Cloud, aunque la consola lo sugiera.
+- No se requiere lectura previa. La clase 1 parte desde los fundamentos.
+
+---
+
+## Primera clase
 
 **Martes 6 de octubre, 19:00.**
 
-En la primera clase vamos a ver qué hace un equipo de datos, cómo se organiza una plataforma en la nube, y vas a correr tu primera consulta sobre datos reales.
+Contenidos: el trabajo de un equipo de datos, la organización de una plataforma de datos en la nube, y la primera consulta sobre datos reales.
