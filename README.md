@@ -5,7 +5,7 @@ Curso de extensión · Octubre – Noviembre 2026
 
 Antes de la primera clase es necesario dejar el entorno de trabajo funcionando. Lleva alrededor de 40 minutos.
 
-Conviene completarlo con anticipación. Los problemas de instalación se resuelven por el canal de consultas; resolverlos durante la clase consume tiempo de cursada.
+Conviene completarlo con anticipación. Los problemas de instalación se resuelven por el [canal de consultas](https://github.com/juanmantegazza/ingenieria-datos-gcp/discussions); resolverlos durante la clase consume tiempo de cursada.
 
 No se requieren conocimientos previos de Google Cloud.
 
@@ -118,7 +118,7 @@ Esto crea el dataset `curso_dbt` en el proyecto, con una tabla. El modelo no con
 
 ## Problemas durante la instalación
 
-Reportarlos por el canal de consultas, indicando **el comando ejecutado y el mensaje de error completo**, sin resumir. El texto exacto es lo que permite identificar la causa.
+Reportarlos en el [canal de consultas](https://github.com/juanmantegazza/ingenieria-datos-gcp/discussions) —la pestaña **Discussions** de este repositorio— indicando **el comando ejecutado y el mensaje de error completo**, sin resumir. El texto exacto es lo que permite identificar la causa.
 
 ---
 
