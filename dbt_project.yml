@@ -1,0 +1,12 @@
+name: 'curso'
+version: '1.0.0'
+profile: 'curso'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  curso:
+    prueba:
+      +materialized: table

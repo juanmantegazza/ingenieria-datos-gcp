@@ -1,0 +1,15 @@
+# Reemplazá TU-ID-DE-PROYECTO por el ID de tu proyecto de Google Cloud.
+# El ID no es el nombre que le pusiste: lo ves en la consola, al lado del
+# selector de proyecto.
+
+curso:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: TU-ID-DE-PROYECTO
+      dataset: curso_dbt
+      location: US
+      threads: 4
+      timeout_seconds: 300

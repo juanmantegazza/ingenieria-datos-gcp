@@ -1,0 +1,9 @@
+[project]
+name = "ingenieria-datos-gcp"
+version = "0.1.0"
+description = "Curso de ingeniería y análisis de datos en Google Cloud — UTN FRRo"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "dbt-core>=1.9,<2.0",
+    "dbt-bigquery>=1.9,<2.0",
+]
