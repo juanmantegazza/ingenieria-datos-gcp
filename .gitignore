@@ -1,0 +1,5 @@
+# Carpeta que genera el asistente al entregar archivos
+Claude outputs/
+
+.DS_Store
+*-key.json
